@@ -8,6 +8,7 @@ import { MatInputModule, MatButtonModule, MatListModule, MatTooltipModule, MatIc
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent, LogarComponent } from './components';
+import { LoginService } from './services';
 
 @NgModule({
   imports: [
@@ -25,7 +26,11 @@ import { LoginComponent, LogarComponent } from './components';
   ],
   declarations: [
     LoginComponent, 
-    LogarComponent]
+    LogarComponent
+  ],
+  providers: [
+    LoginService
+  ]
 })
 export class LoginModule { 
 }
