@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CadastrarPjComponent, CadastroPjComponent } from './components';
 import { MatInputModule, MatButtonModule, MatListModule, MatIconModule, MatTooltipModule, MatSnackBarModule } from '@angular/material';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { MatInputModule, MatButtonModule, MatListModule, MatIconModule, MatToolt
     MatListModule,
     MatIconModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SharedModule
   ],
   declarations: [
     CadastrarPjComponent,
