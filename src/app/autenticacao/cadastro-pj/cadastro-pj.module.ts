@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CadastrarPjComponent, CadastroPjComponent } from './components';
 import { MatInputModule, MatButtonModule, MatListModule, MatIconModule, MatTooltipModule, MatSnackBarModule } from '@angular/material';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CadastroPjService } from './services';
 
 @NgModule({
   imports: [
@@ -28,6 +29,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     CadastrarPjComponent,
     CadastroPjComponent
+  ],
+  providers: [
+    CadastroPjService
   ]
 })
 export class CadastroPjModule { }
