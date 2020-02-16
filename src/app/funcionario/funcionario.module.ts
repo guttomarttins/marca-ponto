@@ -6,6 +6,7 @@ import { FuncionarioComponent, LancamentoComponent, ListagemComponent } from './
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatListModule, MatTooltipModule, MatIconModule, MatButtonModule, MatSnackBarModule, MatTableModule, MatPaginatorModule, MatSortModule, MatCardModule, MatPaginatorIntl } from '@angular/material';
 import { HttpUtilService, LancamentoService, PtBrMatPaginatorIntl } from '../shared';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { HttpUtilService, LancamentoService, PtBrMatPaginatorIntl } from '../sha
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ],
   declarations: [
     ListagemComponent, 
