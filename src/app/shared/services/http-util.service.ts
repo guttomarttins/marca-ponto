@@ -11,7 +11,7 @@ export class HttpUtilService {
 
     if(localStorage['token']){
        httpHeaders = httpHeaders.set(
-         'Authirization', 'Bearer ' + localStorage['token']
+         'Authorization', 'Bearer ' + localStorage['token']
        );
     }
 

@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FuncionarioComponent, LancamentoComponent, ListagemComponent } from './components';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatListModule, MatTooltipModule, MatIconModule, MatButtonModule, MatSnackBarModule, MatTableModule, MatPaginatorModule, MatSortModule, MatCardModule } from '@angular/material';
+import { HttpUtilService, LancamentoService } from '../shared';
 
 @NgModule({
   imports: [
@@ -27,6 +28,10 @@ import { MatInputModule, MatListModule, MatTooltipModule, MatIconModule, MatButt
     ListagemComponent, 
     LancamentoComponent,
     FuncionarioComponent
+  ],
+  providers: [
+    HttpUtilService,
+    LancamentoService
   ]
 })
 export class FuncionarioModule { }
