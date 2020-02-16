@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { CpfValidator, CnpjValidator } from 'src/app/shared/validators';
+import { CadastroPf } from '../../models';
 
 @Component({
   selector: 'app-cadastrar-pf',
@@ -37,7 +38,8 @@ export class CadastrarPfComponent implements OnInit {
        return;
     }
 
-    alert(JSON.stringify(this.form.value));
+    const cadastroPf: CadastroPf = this.form.value;
+    alert(JSON.stringify(cadastroPf));
 
     return false;
   }
