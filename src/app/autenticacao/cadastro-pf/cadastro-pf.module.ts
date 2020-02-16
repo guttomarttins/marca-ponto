@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatButtonModule, MatListModule, MatTooltipModule, MatSnackBarModule, MatIconModule } from '@angular/material';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CadastrarPfService } from './services';
 
 @NgModule({
   imports: [
@@ -24,6 +25,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     CadastrarPfComponent,
     CadastroPfComponent
+  ],
+  providers: [ 
+    CadastrarPfService
   ]    
 })
 export class CadastroPfModule { }
