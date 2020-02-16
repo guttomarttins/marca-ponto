@@ -5,7 +5,7 @@ import { CadastrarPfComponent, CadastroPfComponent } from './components';
 export const CadastroPfRoutes: Routes = [
     {
         path: 'cadastro-pf',
-        component: CadastrarPfComponent,
+        component: CadastroPfComponent,
         children: [
             {
                 path: '',

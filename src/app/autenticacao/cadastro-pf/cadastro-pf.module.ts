@@ -3,12 +3,23 @@ import { CommonModule } from '@angular/common';
 import { CadastrarPfComponent, CadastroPfComponent } from './components';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatButtonModule, MatListModule, MatTooltipModule, MatSnackBarModule, MatIconModule } from '@angular/material';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatListModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatSnackBarModule,
+    SharedModule
   ],
   declarations: [
     CadastrarPfComponent,
