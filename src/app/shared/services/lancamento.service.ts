@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment as env} from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Lancamento } from '../models';
+import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 
 
 @Injectable()
@@ -43,5 +44,20 @@ export class LancamentoService {
         '{funcionarioId}', this.httpUtil.obterIdUsuario()),
         this.httpUtil.headers()
       );
+  }
+
+  listarLancamentosPorFuncionario(
+    funcionarioId: string,
+    pagina: number,
+    ordem: string,
+    direcao: string): Observable<any>{
+    
+      const url: string = env.baseApiUrl + this.PATH +
+      this.PATH_LACAMENTOS.replace('{funcionarioId}', funcionarioId);
+
+      const params: string = "?page=" + pagina + '&ord=' + ordem +
+      '&dir=' + direcao;
+
+      return this.http.get(url + params, this.httpUtil.headers());
   }
 }
