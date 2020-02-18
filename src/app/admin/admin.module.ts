@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule, MatButtonModule, MatListModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatTableModule, MatSelectModule, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatPaginatorModule, MatSortModule, MatPaginatorIntl, MAT_DATE_LOCALE } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { LancamentoService, HttpUtilService, PtBrMatPaginatorIntl, FuncionarioService } from '../shared';
+import { AdminGuard } from './services';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { LancamentoService, HttpUtilService, PtBrMatPaginatorIntl, FuncionarioSe
     MatPaginatorIntl,
     FuncionarioService,
     { provide: MAT_DATE_LOCALE, useValue: 'pt-Br' },
-    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl }
+    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },
+    AdminGuard
   ],
   entryComponents: [ConfirmarDialog]
 })
