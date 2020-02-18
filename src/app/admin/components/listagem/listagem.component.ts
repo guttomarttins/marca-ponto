@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSnackBar, PageEvent, Sort } from '@angular/material';
-import { Lancamento, LancamentoService, HttpUtilService } from 'src/app/shared';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSnackBar, PageEvent, Sort, MatSelect } from '@angular/material';
+import { Lancamento, LancamentoService, HttpUtilService, FuncionarioService, Funcionario } from 'src/app/shared';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-listagem',
@@ -15,6 +15,10 @@ export class ListagemComponent implements OnInit {
   funcionarioId: string;
   totalLancamentos: string;
 
+  funcionarios: Funcionario[];
+  @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
+  form: FormGroup;
+
   private pagina: number;
   private ordem: string;
   private direcao: string;
@@ -23,48 +27,88 @@ export class ListagemComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private httpUtil: HttpUtilService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private funcionarioService: FuncionarioService) { }
 
   ngOnInit() {
     this.pagina = 0;
     this.ordemPadrao();
-    this.exibirLancamentos();
+    this.obterFuncionarios();
+    this.geraForm();
   }
 
-  ordemPadrao(){
+  geraForm() {
+    this.form = this.fb.group({
+      funcs: ['', []]
+    });
+  }
+
+  ordemPadrao() {
     this.ordem = 'data';
     this.direcao = 'DESC';
   }
 
-  exibirLancamentos(){
-     this.funcionarioId = '2';
-
-     this.lancamentoService.listarLancamentosPorFuncionario(
-       this.funcionarioId, this.pagina, this.ordem, this.direcao)
-       .subscribe(
-         data => {
-           this.totalLancamentos = data['data'].totalElements;
-           const lancamentos = data['data'].content as Lancamento[];
-           this.dataSource = new MatTableDataSource<Lancamento>(lancamentos); 
-         },
-         err => {
-           const msg: string = "Erro obtendo lançamentos.";
-           this.snackBar.open(msg, "Erro", { duration: 5000 });
-         }
-       );
+  get funcId(): string {
+    return sessionStorage['funcionarioId'] || false;
   }
 
-  removerLancamento(lancamentoId: string){
-     alert(lancamentoId);
+  obterFuncionarios() {
+    this.funcionarioService.listarFuncionariosPorEmpresa()
+      .subscribe(
+        data => {
+          const usuarioId: string = this.httpUtil.obterIdUsuario();
+          this.funcionarios = (data.data as Funcionario[])
+            .filter(func => func.id != usuarioId);
+
+          if (this.funcId) {
+            this.form.get('funcs').setValue(parseInt(this.funcId, 10));
+            this.exibirLancamentos();
+          }
+        },
+        err => {
+          const msg: string = "Erro obtendo funcionários.";
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
   }
 
-  paginar(pageEvent: PageEvent){
+  exibirLancamentos() {
+    if (this.matSelect.selected) {
+      this.funcionarioId = this.matSelect.selected['value'];
+    } else if (this.funcId) {
+      this.funcionarioId = this.funcId;
+    } else {
+      return;
+    }
+
+    sessionStorage['funcionarioId'] = this.funcionarioId;
+
+    this.lancamentoService.listarLancamentosPorFuncionario(
+      this.funcionarioId, this.pagina, this.ordem, this.direcao)
+      .subscribe(
+        data => {
+          this.totalLancamentos = data['data'].totalElements;
+          const lancamentos = data['data'].content as Lancamento[];
+          this.dataSource = new MatTableDataSource<Lancamento>(lancamentos);
+        },
+        err => {
+          const msg: string = "Erro obtendo lançamentos.";
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
+  }
+
+  removerLancamento(lancamentoId: string) {
+    alert(lancamentoId);
+  }
+
+  paginar(pageEvent: PageEvent) {
     this.pagina = pageEvent.pageIndex;
     this.exibirLancamentos();
   }
 
-  ordenar(sort: Sort){
-    if(sort.direction == ''){
+  ordenar(sort: Sort) {
+    if (sort.direction == '') {
       this.ordemPadrao;
     } else {
       this.ordem = sort.active;
